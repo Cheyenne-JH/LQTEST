@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>玩商(LQ)小测试</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #f9f9f9; display: flex; justify-content: center; padding: 40px 20px; color: #333; }
+        .container { max-width: 600px; width: 100%; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        h1 { text-align: center; color: #ff6b6b; margin-bottom: 30px; }
+        .question { margin-bottom: 25px; }
+        .question p { font-weight: bold; margin-bottom: 10px; }
+        label { display: block; padding: 10px; border: 1px solid #eee; border-radius: 8px; margin-bottom: 8px; cursor: pointer; transition: 0.3s; }
+        label:hover { background: #fff0f0; border-color: #ff6b6b; }
+        input[type="radio"] { margin-right: 10px; accent-color: #ff6b6b; }
+        button { width: 100%; padding: 15px; background: #ff6b6b; color: white; border: none; border-radius: 8px; font-size: 18px; cursor: pointer; margin-top: 20px; }
+        button:hover { background: #ee5a5a; }
+        .result { display: none; margin-top: 30px; padding: 20px; background: #fffbe6; border-radius: 8px; border-left: 5px solid #ffd700; line-height: 1.6; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>🎮 测测你的玩商 (LQ)</h1>
+    
+    <div class="question">
+        <p>1. 终于熬到了周末，原本打算在家睡懒觉，但朋友突然约你去探店。你的第一反应是？</p >
+        <label><input type="radio" name="q1" value="A"> A. 拒绝，休息时间神圣不可侵犯，打乱计划很烦躁。</label>
+        <label><input type="radio" name="q1" value="B"> B. 答应，虽然有点累，但出去走走也挺好。</label>
+        <label><input type="radio" name="q1" value="C"> C. 欣然前往，觉得这比原定计划更有意思，期待惊喜。</label>
+    </div>
+
+    <div class="question">
+        <p>2. 拼图/拼乐高迟迟没有进展，这时候你会？</p >
+        <label><input type="radio" name="q2" value="A"> A. 觉得浪费时间，干脆放弃去做点“有用”的事。</label>
+        <label><input type="radio" name="q2" value="B"> B. 稍微休息调整，争取把它完成。</label>
+        <label><input type="radio" name="q2" value="C"> C. 享受卡壳的过程，随便乱拼，说不定能解锁新花样。</label>
+    </div>
+
+    <div class="question">
+        <p>3. 团建活动是你完全不感兴趣的桌游，你会怎么做？</p >
+        <label><input type="radio" name="q3" value="A"> A. 找借口溜走，或在一旁玩手机等结束。</label>
+        <label><input type="radio" name="q3" value="B"> B. 礼貌参与配合，但内心默默倒计时。</label>
+        <label><input type="radio" name="q3" value="C"> C. 既然来了就放开玩，不懂规则也跟着瞎起哄。</label>
+    </div>
+
+    <div class="question">
+        <p>4. 下班路上偶然发现一只奇特的流浪猫或墙缝里的花，你会？</p >
+        <label><input type="radio" name="q4" value="A"> A. 看一眼就走，心里想着还得赶回家处理事情。</label>
+        <label><input type="radio" name="q4" value="B"> B. 停下来拍张照发朋友圈，然后继续赶路。</label>
+        <label><input type="radio" name="q4" value="C"> C. 蹲下来仔细观察互动，觉得这是今天的小确幸。</label>
+    </div>
+
+    <div class="question">
+        <p>5. 如果现在给你一个月带薪假且无人打扰，你最理想的度过方式是？</p >
+        <label><input type="radio" name="q5" value="A"> A. 制定详细计划把时间排满，觉得这样才充实。</label>
+        <label><input type="radio" name="q5" value="B"> B. 先睡几天，然后看书健身，保持规律作息。</label>
+        <label><input type="radio" name="q5" value="C"> C. 彻底放空，睡到自然醒，随心所欲做任何事。</label>
+    </div>
+
+    <button onclick="showResult()">查看我的玩商报告 🚀</button>
+    <div id="resultBox" class="result"></div>
+</div>
+
+<script>
+function showResult() {
+    const answers = [];
+    for(let i=1; i<=5; i++) {
+        const selected = document.querySelector(`input[name="q${i}"]:checked`);
+        if(!selected) { alert('还有题目没选哦，请检查一下~'); return; }
+        answers.push(selected.value);
+    }
+    
+    const combo = answers.join('');
+    let title = '', desc = '';
+    const cCount = answers.filter(a => a === 'C').length;
+    const bCount = answers.filter(a => a === 'B').length;
+
+    if(cCount >= 4) {
+        title = '🏆 SSR级：满级松弛感玩家';
+        desc = '在这个充满焦虑的世界里，你是一股清流！你不以世俗的“有用/无用”评判事物，拥有顶级的“心流”体质，完全克服了“玩乐羞耻”。允许自己毫无意义地浪费时间，是你最高级的自我疗愈。继续保持这份松弛感，你就是行走的快乐充电宝！';
+    } else if(bCount >= 3 || (bCount >= 2 && cCount >= 2)) {
+        title = '🌟 A级：进阶体验派';
+        desc = '你的玩商相当不错！虽然偶尔还会被“效率至上”的观念绑架，但你已经学会了在规则边缘寻找乐趣。你能在责任与快乐之间找到平衡，建议多给自己一些“无目的”的时间，你会发现更多隐藏的彩蛋。';
+    } else if(answers.filter(a => a === 'A').length >= 3) {
+        title = '🔋 B级：紧绷的实干家';
+        desc = '你似乎把生活过成了一场不能NG的考试。过度追求“有用”让你错过了很多路边的风景。记住，人不是机器，不会玩的生活才是真正的虚度光阴。今晚不如就给自己放个假，理直气壮地去“浪费”一点时间吧！';
+    } else {
+        title = '🎲 C级：薛定谔的玩家';
+        desc = '你的状态在“卷王”和“咸鱼”之间反复横跳。有时候极度自律，有时候又报复性放松。试着建立一套属于自己的“玩乐KPI”，比如每周必须做一件毫无意义但开心的小事，让快乐变得可持续。';
+    }
+
+    document.getElementById('resultBox').innerHTML = `<h2>${title}</h2><p><strong>你的专属组合：</strong> ${combo}</p ><p>${desc}</p >`;
+    document.getElementById('resultBox').style.display = 'block';
+    document.getElementById('resultBox').scrollIntoView({behavior: 'smooth'});
+}
+</script>
+</body>
+</html>
